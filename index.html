@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edvan Champions Store - Camisas de Times Oficiais</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #ffd700;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .whatsapp-header {
+            background: #25d366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .whatsapp-header:hover {
+            background: #128c7e;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23034694" width="1200" height="600"/><circle fill="%23fff" cx="600" cy="300" r="150" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .categories {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+        }
+
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 12px 30px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+            transform: translateY(-2px);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-code {
+            background: #e9ecef;
+            color: #495057;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .product-category {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128c7e;
+            transform: translateY(-2px);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            background: #128c7e;
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .whatsapp-float img {
+            width: 35px;
+            height: 35px;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        .footer-section p {
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #34495e;
+            padding-top: 20px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .category-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .header-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo"> Edvan Champions <span>Store</span></a>
+                <div class="header-info">
+                    <a href="https://wa.me/5511961403630?text=Olá! Preciso de ajuda para escolher uma camisa." class="whatsapp-header">
+                        📱 Fale Conosco
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Camisas de Times Oficiais</h1>
+            <p>As melhores camisas dos seus times favoritos com qualidade premium</p>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Nossos Produtos</h2>
+            
+            <div class="category-nav">
+                <button class="category-btn active" onclick="filterProducts('all')">Todos</button>
+                <button class="category-btn" onclick="filterProducts('masculina')">Masculina</button>
+                <button class="category-btn" onclick="filterProducts('feminina')">Feminina</button>
+                <button class="category-btn" onclick="filterProducts('infantil')">Infantil</button>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Produtos Masculinos -->
+                <div class="product-card masculina">
+                    <img src="camisaPM001.webp" alt="Camisa Manchester United" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PM001</span>
+                        <h3 class="product-title">Manchester United - Home</h3>
+                        <p class="product-category">Masculina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PM001" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card masculina">
+                    <img src="camisaPM002.webp" alt="Camisa Manchester United Away" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PM002</span>
+                        <h3 class="product-title">Manchester United - Away</h3>
+                        <p class="product-category">Masculina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PM002" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card masculina">
+                    <img src="camisaPM003.webp" alt="Camisa Bélgica" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PM003</span>
+                        <h3 class="product-title">Seleção Belga - Home</h3>
+                        <p class="product-category">Masculina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PM003" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card masculina">
+                    <img src="Image 4" alt="Camisa PSG" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PM004</span>
+                        <h3 class="product-title">Paris Saint-Germain - Home</h3>
+                        <p class="product-category">Masculina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PM004" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card masculina">
+                    <img src="Image 5" alt="Camisa Real Madrid Away" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PM005</span>
+                        <h3 class="product-title">Real Madrid - Away</h3>
+                        <p class="product-category">Masculina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PM005" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card masculina">
+                    <img src="Image 6" alt="Camisa Flamengo" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PM006</span>
+                        <h3 class="product-title">Flamengo - Especial</h3>
+                        <p class="product-category">Masculina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PM006" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card masculina">
+                    <img src="Image 7" alt="Camisa Real Madrid Home" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PM007</span>
+                        <h3 class="product-title">Real Madrid - Home</h3>
+                        <p class="product-category">Masculina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PM007" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card masculina">
+                    <img src="Image 8" alt="Camisa Bayern Munich" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PM008</span>
+                        <h3 class="product-title">Bayern Munich - Third</h3>
+                        <p class="product-category">Masculina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PM008" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card masculina">
+                    <img src="Image 9" alt="Camisa River Plate" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PM009</span>
+                        <h3 class="product-title">River Plate - Home</h3>
+                        <p class="product-category">Masculina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PM009" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produtos Femininos -->
+                <div class="product-card feminina">
+                    <img src="camisaPF001.webp" alt="Camisa Manchester United Feminina" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PF001</span>
+                        <h3 class="product-title">Manchester United - Feminina</h3>
+                        <p class="product-category">Feminina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PF001" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card feminina">
+                    <img src="camisaPF002.webp" alt="Camisa PSG Feminina" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PF002</span>
+                        <h3 class="product-title">Paris Saint-Germain - Feminina</h3>
+                        <p class="product-category">Feminina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PF002" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card feminina">
+                    <img src="camisaPF003.webp" alt="Camisa Real Madrid Feminina" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PF003</span>
+                        <h3 class="product-title">Real Madrid - Feminina</h3>
+                        <p class="product-category">Feminina</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PF003" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produtos Infantis -->
+                <div class="product-card infantil">
+                    <img src="camisaPI001.webp" alt="Camisa Manchester United Infantil" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PI001</span>
+                        <h3 class="product-title">Manchester United - Infantil</h3>
+                        <p class="product-category">Infantil</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PI001" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card infantil">
+                    <img src="camisaPI002.webp" alt="Camisa PSG Infantil" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PI002</span>
+                        <h3 class="product-title">Paris Saint-Germain - Infantil</h3>
+                        <p class="product-category">Infantil</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PI002" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card infantil">
+                    <img src="camisaPI002.webp" alt="Camisa PSG Infantil" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PI005</span>
+                        <h3 class="product-title">Paris Saint-Germain - Infantil</h3>
+                        <p class="product-category">Infantil</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PI005" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card infantil">
+                    <img src="camisaPI003.webp" alt="Camisa Real Madrid Infantil" class="product-image">
+                    <div class="product-info">
+                        <span class="product-code">PI003</span>
+                        <h3 class="product-title">Real Madrid - Infantil</h3>
+                        <p class="product-category">Infantil</p>
+                        <a href="https://wa.me/5511961403630?text=Olá! Vi no site e tenho interesse na camisa PI003" class="whatsapp-btn">
+                            📱 Comprar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Edvan Champions Store</h3>
+                    <p>Sua loja especializada em camisas de times</p>
+                    <p>Qualidade premium garantida</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Atendimento</h3>
+                    <p>📱 WhatsApp: (11) 96140-3630</p>
+                    <p>⏰ Seg-Sex: 9h às 18h</p>
+                    <p>⏰ Sáb: 9h às 14h</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Categorias</h3>
+                    <p>Camisas Masculinas</p>
+                    <p>Camisas Femininas</p>
+                    <p>Camisas Infantis</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Edvan Champions Store. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5511961403630?text=Olá! Preciso de ajuda para escolher uma camisa." class="whatsapp-float">
+        <svg width="35" height="35" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.485 3.488"/>
+        </svg>
+    </a>
+
+    <script>
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-card');
+            const buttons = document.querySelectorAll('.category-btn');
+            
+            // Remove active class from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Filter products
+            products.forEach(product => {
+                if (category === 'all' || product.classList.contains(category)) {
+                    product.style.display = 'block';
+                    product.classList.add('fade-in');
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animation
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const cardVisible = 150;
+                
+                if (cardTop < window.innerHeight - cardVisible) {
+                    card.classList.add('fade-in');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
